@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/vue@next" defer></script>
+  <script src="./app.js" defer></script>
+  <title>Document</title>
+</head>
+
+
+
+<div id="Mainsection">
+  <div id="mainheader">
+
+    <header >
+      <h1>Chat App</h1>
+    </header>
+  
+  </div>
+  
+  <section id="Addcontact">
+    <button class="Main" @click="toggleadddetail" >Add Contact</button>
+    <li v-if = "isadddetailallowed">
+        <ul>
+          <li>
+            <strong>Name:</strong> 
+            <input type="text"  
+            v-model= "EnteredName" 
+            placeholder="Enter Name"> 
+          </li>
+          <li> 
+            <button @click='Addcontacts'>Add Details</button>  
+          </li>  
+           </ul>
+      </li>
+         
+  </section>
+  
+  
+  <section id="Listofcontacts">
+    <div class="dropdown">
+      <button class="dropbtn">Contacts</button>
+      <div class="dropdown-content">
+        <div v-for= "Contact in Contacts"   >
+        <li ><button @click="Showchatfromcontactlist">{{Contact.Name}}</button></li> 
+        </div>   
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  
+  <section id="Chatapp">
+    <body>
+      <div id="container">
+        <aside>
+          <header>
+            <h1>Chats</h1>
+          </header>
+          <ul>
+            <li v-for="chat in chatlist" >
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+              <div>
+                <h2><button @click=" Showchatfromcontactlist" >{{chat.Name}}</button></h2>
+                <h3>
+                  {{chat.sender}} : {{chat.lasttext}} 
+                </h3>
+                <h3>
+                  {{chat.timestamp}} 
+                </h3>
+              </div>
+            </li>  
+          </ul>
+        </aside>
+        
+      <main>
+        <header>
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+            <div>
+              <h2>{{friendname}}</h2>
+            </div>
+           </header>
+          <ul id="chat">
+            <div  v-for="value in messagetobedisplayed">
+            <li :class="{me: islabelUser(value) , you: islabelFriend(value)}">
+              <div class="entete">
+                <h2>{{value.label}}</h2>
+                <h3>{{value.timestamp}}</h3>
+              </div>
+              <div class="triangle"></div>
+              <div class="message">
+                {{value.value}} 
+              </div>
+            </li>
+          </div>
+          </ul>
+          <footer>
+
+            <input type="text" v-model="Usertext" placeholder="Enter Message"> 
+            <button @click="Usertextlistadd()">Send</button>
+          </footer>
+        </main>
+      </div>
+    
+    
+    
+      <body>
+        <div id="container">
+          <main>
+            <header>
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+              <div>
+                <h2>Chat with User</h2>
+              </div>
+            </header>
+            <ul id="chat">
+              <div  v-for="value in messagetobedisplayed">
+              <li :class="{you: islabelUser(value) , me: islabelFriend(value)}">
+                <div class="entete">
+                  <h2>{{value.label}}</h2>
+                  <h3>{{value.timestamp}}</h3>
+                </div>
+                <div class="triangle"></div>
+                <div class="message">
+                  {{value.value}} 
+                </div>
+              </li>
+            </div>
+            </ul>
+            <footer>
+              <input type="text" v-model="Friendtext" placeholder="Enter Message"> 
+            <button @click="Friendtextlistadd">Send</button>
+            </footer>
+          </main>
+        </div>
+      </div>
+    </body>
+  </section>
+</div>
+</html>
